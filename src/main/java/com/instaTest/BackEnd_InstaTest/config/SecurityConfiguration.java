@@ -14,61 +14,43 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-	
+
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
 
-	
 	@Autowired
 	private CustomAuthenticationSuccessHandler successHandler;
 
-	
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-				
 		http
-			.authorizeHttpRequests((auth) -> auth
-				.requestMatchers("/", "/login", "/home", "/join", "/joinProc", "/api/loginProc").permitAll()	
-				.requestMatchers("/admin").hasRole("ADMIN")
-				.requestMatchers("/baseball/**", "/api/**").hasAnyRole("ADMIN", "USER")
-				.anyRequest().authenticated()
-			);
-		
-		http
-			.formLogin((auth) -> auth 
-				// .loginPage("/login")
-				.loginProcessingUrl("/api/loginProc")
-				.permitAll()
-				.successHandler(successHandler)
-			);
-		
-		http
-			.csrf((auth) -> auth.disable());
-		
-		/*
-		http
-		.sessionManagement((auth) -> auth
-			.sessionFixation((sessionFixation) -> sessionFixation
-					.newSession()
-					.maximumSessions(1)
-					.maxSessionsPreventsLogin(true))
-		);
-		*/
-		
-		http
-		.logout((auth) -> auth
-			.logoutUrl("/logout")
-			.logoutSuccessUrl("/")
-		);
-		
-		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-		
+				.authorizeHttpRequests((auth) -> auth
+						.requestMatchers("/", "/login", "/home", "/join", "/joinProc", "/api/loginProc", "/favicon.ico").permitAll()
+						.requestMatchers("/admin").hasRole("ADMIN")
+						.requestMatchers("/board/**", "/api/**").hasAnyRole("ADMIN", "USER")
+						.anyRequest().authenticated()
+				)
+				.formLogin((auth) -> auth
+						.loginProcessingUrl("/api/loginProc")
+						.permitAll()
+						.successHandler(successHandler)
+				)
+				.csrf((auth) -> auth.disable())  // CSRF를 필요 시 활성화
+				.logout((auth) -> auth
+						.logoutUrl("/logout")
+						.logoutSuccessUrl("/")
+						.invalidateHttpSession(true)
+						.deleteCookies("JSESSIONID")  // 로그아웃 시 세션과 쿠키 제거
+				)
+				.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
 		return http.build();
 	}
-	
+
 	@Bean
 	BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
 
 }
