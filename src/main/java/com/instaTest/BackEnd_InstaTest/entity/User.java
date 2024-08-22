@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table (name = "t_user")
+@Table (name = "users")
 public class User {
 
     @Id
@@ -32,6 +32,9 @@ public class User {
 
     @Column(name = "e_mail", nullable = false, unique = true)
     private String email;
+
+    @Column(name = "profile_image")
+    private String profileImage;
 
 
 }

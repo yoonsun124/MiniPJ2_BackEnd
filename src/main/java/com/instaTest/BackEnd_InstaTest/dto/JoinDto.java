@@ -18,14 +18,17 @@ public class JoinDto {
     private String password;
     private String passwordConfirm;
     private String email;
+    private String profileImage;
 
-    public JoinDto(Long id, String user_id,String userName,String password, String passwordConfirm, String email) {
+    public JoinDto(Long id, String user_id,String userName,String password, String passwordConfirm, String email
+            , String profileImage) {
         this.id = id;
         this.user_id = user_id;
         this.userName = userName;
         this.password = password;
         this.passwordConfirm = passwordConfirm;
         this.email = email;
+        this.profileImage = profileImage;
     }
 
     // 패스워드와 패스워드 확인이 동일한지 확인

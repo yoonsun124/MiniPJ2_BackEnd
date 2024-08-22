@@ -15,7 +15,8 @@ public class JoinMapper {
                 user.getUsername(),
                 user.getPassword(),
                 user.getPasswordConfirm(),
-                user.getEmail()
+                user.getEmail(),
+                user.getProfileImage()
         );
     }
 
@@ -27,6 +28,7 @@ public class JoinMapper {
         user.setPassword(joinDto.getPassword());
         user.setPasswordConfirm(joinDto.getPasswordConfirm());
         user.setEmail(joinDto.getEmail());
+        user.setProfileImage(joinDto.getProfileImage());
         return user;
     }
 }
