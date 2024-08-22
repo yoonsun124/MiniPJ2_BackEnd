@@ -1,6 +1,7 @@
 package com.instaTest.BackEnd_InstaTest.dto;
 
 import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,13 +13,15 @@ import lombok.Setter;
 public class JoinDto {
 
     private Long id;
+    private String user_id;
     private String userName;
     private String password;
     private String passwordConfirm;
     private String email;
 
-    public JoinDto(Long id,String userName,String password, String passwordConfirm, String email) {
+    public JoinDto(Long id, String user_id,String userName,String password, String passwordConfirm, String email) {
         this.id = id;
+        this.user_id = user_id;
         this.userName = userName;
         this.password = password;
         this.passwordConfirm = passwordConfirm;
