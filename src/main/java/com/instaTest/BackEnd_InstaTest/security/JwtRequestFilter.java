@@ -33,7 +33,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		String uri = request.getRequestURI();
-		if (uri.equals("/") || uri.equals("/login") || uri.equals("/api/loginProc") || uri.equals("/joinProc")) {
+		if (uri.equals("/") || uri.equals("/login") || uri.equals("/api/loginProc") || uri.equals("/joinProc")
+				|| uri.equals("/favicon.ico")) {
 			filterChain.doFilter(request, response);
 			return;
 		}

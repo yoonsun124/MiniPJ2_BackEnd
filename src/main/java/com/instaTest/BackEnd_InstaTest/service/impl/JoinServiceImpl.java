@@ -36,7 +36,7 @@ public class JoinServiceImpl implements JoinService {
 
 		// 패스워드 암호화 처리 및 역할을 설정
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-//		user.setRole("ROLE_USER");	// 사용자 역할을 구분하는 문자로 "ROLE_" 접두어를 사용
+		user.setRole("ROLE_USER");	// 사용자 역할을 구분하는 문자로 "ROLE_" 접두어를 사용
 		
 		// UserEntity 를 저장
 		try {
